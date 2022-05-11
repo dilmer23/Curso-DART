@@ -9,7 +9,7 @@ class SecondScreen extends StatefulWidget {
 
 class _SecondScreen extends State<SecondScreen> {
   @override
-  String flutterText = "";
+  String flutterText = "Prueba";
 // ignore: non_constant_identifier_names
 int index = 0;
 //arreglo de texto para el tring que actualiza el setState
@@ -18,7 +18,7 @@ List<String> Collletion =['Diego','Jesus','Javier','Dilmer'];
   void OnPressButton(){
     setState(() {
       flutterText = Collletion[index];
-      index = index < 2 ? index + 1 : 0;
+      index = index < 3 ? index + 1 : 0;
      });
   }
   @override
@@ -32,7 +32,20 @@ List<String> Collletion =['Diego','Jesus','Javier','Dilmer'];
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text(flutterText,style: TextStyle(color: Colors.blue),),
+            Text(flutterText,style: const TextStyle(fontSize: 50,color:Colors.white,  shadows: <Shadow>[
+                  Shadow(
+                    offset: Offset(3, 3),
+                    blurRadius: 12.0,
+                    color: Color.fromARGB(255, 0, 0, 0),
+                  ),
+                  Shadow(
+                    offset: Offset(5, 5),
+                    blurRadius: 4,
+                    color: Color.fromARGB(124, 0, 0, 0),
+                  ),
+                ],
+              ),
+            ),
             ElevatedButton(
           // Within the `FirstScreen` widget
           onPressed: OnPressButton,
@@ -42,6 +55,11 @@ List<String> Collletion =['Diego','Jesus','Javier','Dilmer'];
            Navigator.pop(context);
         }, 
           child: Text("Regresar"),
+          ),
+           ElevatedButton(onPressed: (){
+           Navigator.pushNamed(context,'/tree');
+        }, 
+          child: Text("FielText"),
           )
           ],
         ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:primera_app_curso/SecondScreen.dart';
+import 'package:primera_app_curso/view/TreeScreen.dart';
 
 void main() {
   runApp( MaterialApp(
@@ -7,6 +8,7 @@ void main() {
     routes: {
       '/' :(context) => FirtScreen(),
       '/second' : (context) => SecondScreen(),
+      '/tree' : (context) => TreeScreen(),
     },
   ));
 }
@@ -27,12 +29,6 @@ class FirtScreen extends StatelessWidget{
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const <Widget>[
-            MyButton(
-             tituloBtn: Text("Segunda Actividad"),
-            ),
-            MyButton(
-              tituloBtn: Text("Prueba 2"),
-              ),
             MyCard(
               titulo: Text("Diego Cerquera"),
               icono: Icon(Icons.safety_divider,size: 80,color: Colors.blue,),
@@ -45,6 +41,12 @@ class FirtScreen extends StatelessWidget{
               titulo: Text("Javier Campuzano"),
               icono: Icon(Icons.ice_skating,size: 80,)
             ),
+             MyButton(
+             tituloBtn: Text("Segunda Actividad"),
+            ),
+            // MyButton(
+            //   tituloBtn: Text("Prueba 2"),
+            //   ),
           ],
         ),
       )
