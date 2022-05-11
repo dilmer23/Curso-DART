@@ -51,16 +51,12 @@ class FirtScreen extends StatelessWidget{
     );
   }
 }
-
 class MyCard extends StatelessWidget {
-
   final Widget titulo;
   final Widget icono;
-
   const MyCard({required this.icono,required this.titulo});
   @override
   Widget build(BuildContext context) {
-
     return Container(
       padding: const EdgeInsets.all(30.0),
       child: Card(
@@ -70,18 +66,14 @@ class MyCard extends StatelessWidget {
       ),
     );
   }
-    
 }
 
 class MyButton extends StatelessWidget {
-
   final String ruta;
   final Widget tituloBtn;
-
   const MyButton({this.ruta =("/second"),required this.tituloBtn});
   @override
   Widget build(BuildContext context) {
-
     return Container(
       child: ElevatedButton(
         onPressed:() {
