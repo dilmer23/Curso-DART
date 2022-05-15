@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:primera_app_curso/SecondScreen.dart';
+import 'package:primera_app_curso/view/PagePokeScree.dart';
 import 'package:primera_app_curso/view/TreeScreen.dart';
+import 'package:primera_app_curso/view/fourScreen.dart';
 
 void main() {
   runApp( MaterialApp(
     initialRoute: '/',
     routes: {
-      '/' :(context) => FirtScreen(),
+      '/'       :(context) => FirtScreen(),
       '/second' : (context) => SecondScreen(),
-      '/tree' : (context) => TreeScreen(),
+      '/tree'   : (context) => TreeScreen(),
+      '/four'   : (context) => fourScreen(),
+      '/pokemon'   : (context) => Pokemon(),
     },
   ));
 }
@@ -25,7 +29,7 @@ class FirtScreen extends StatelessWidget{
       appBar: AppBar(
         title: Text("Primera app"),
       ),
-      body:Center(
+      body:SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: const <Widget>[
@@ -42,11 +46,14 @@ class FirtScreen extends StatelessWidget{
               icono: Icon(Icons.ice_skating,size: 80,)
             ),
              MyButton(
-             tituloBtn: Text("Segunda Actividad"),
+             tituloBtn: Text("setState"),
             ),
-            // MyButton(
-            //   tituloBtn: Text("Prueba 2"),
-            //   ),
+            MyButton(
+              tituloBtn: Text("TextField"),
+              ),
+            MyButton(
+              tituloBtn: Text("Alert Dialog"),
+            ),
           ],
         ),
       )
@@ -73,7 +80,7 @@ class MyCard extends StatelessWidget {
 class MyButton extends StatelessWidget {
   final String ruta;
   final Widget tituloBtn;
-  const MyButton({this.ruta =("/second"),required this.tituloBtn});
+  const MyButton({this.ruta =('/pokemon'),required this.tituloBtn});
   @override
   Widget build(BuildContext context) {
     return Container(

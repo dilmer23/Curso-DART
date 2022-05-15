@@ -51,16 +51,16 @@ List<String> Collletion =['Diego','Jesus','Javier','Dilmer'];
           onPressed: OnPressButton,
           child: const Text('Actualizar'),
         ),
-        ElevatedButton(onPressed: (){
-           Navigator.pop(context);
-        }, 
-          child: Text("Regresar"),
-          ),
-           ElevatedButton(onPressed: (){
-           Navigator.pushNamed(context,'/tree');
-        }, 
-          child: Text("FielText"),
-          )
+        // ElevatedButton(onPressed: (){
+        //    Navigator.pop(context);
+        // }, 
+        //   child: Text("Regresar"),
+        //   ),
+        //    ElevatedButton(onPressed: (){
+        //    Navigator.pushNamed(context,'/tree');
+        // }, 
+        //   child: Text("FielText"),
+        //   )
           ],
         ),
       ),
