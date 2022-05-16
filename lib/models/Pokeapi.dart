@@ -6,7 +6,7 @@ class PokeApi {
   int? Aleatorio;
 
   PokeApi(name, url, img){
-     this.name = name;
+    this.name = name;
     this.url = url;
     this.img =img;
  }

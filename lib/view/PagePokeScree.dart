@@ -2,13 +2,14 @@ import 'dart:convert';
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
+import 'package:primera_app_curso/recursos/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:primera_app_curso/models/Pokeapi.dart';
 import 'package:http/http.dart' as http;
 
 class Pokemon extends StatefulWidget {
-  
-  const Pokemon({Key? key}) : super(key: key);
+   Pokemon({Key? key}) : super(key: key);
+
 
   @override
   State<Pokemon> createState() => _PokemonState();
@@ -16,19 +17,24 @@ class Pokemon extends StatefulWidget {
 
 class _PokemonState extends State<Pokemon> {
 
+  int? r = 0;
+
 // ignore: non_constant_identifier_names
 void OnPressButton(){
   setState(() {
+  
   });
 }
 //obejto espera de servidor
  Future<List<PokeApi>?> _getPokemon() async {
-   int? r = 0;
-    Random rnd;
+   
+      
+      Random rnd;
       int min = 1;
       int max = 450;
       rnd =  Random();
       r = min + rnd.nextInt(max - min);
+
    final response =  
     await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$r'));
 
@@ -51,17 +57,17 @@ void OnPressButton(){
  @override
   void initState() {
     super.initState();
-    
     _getPokemon();
   }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Material App',
       home: Scaffold(
+        backgroundColor: Color.fromARGB(255, 182, 212, 198),
         appBar: AppBar(
           title: Text('Pokemon'),
+          backgroundColor: Color.fromARGB(255, 182, 212, 198),
         ),
         body: FutureBuilder(
           future: _getPokemon(),
@@ -80,7 +86,7 @@ void OnPressButton(){
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: OnPressButton,
-          child: const Icon(Icons.accessible),
+          child: const Icon(Icons.work_off_sharp),
         ),
       ),
     );
@@ -88,20 +94,38 @@ void OnPressButton(){
 
   List<Widget>  _listpoke( data){
 
-     int? r = 0;
-    Random rnd;
-      int min = 1;
-      int max = 450;
-      rnd =  Random();
-      r = min + rnd.nextInt(max - min);
-    List<Widget> pokemos = [];
+      // int? r = 0;
+      // Random rnd;
+      // int min = 1;
+      // int max = 450;
+      // rnd =  Random();
+      // r = min + rnd.nextInt(max - min);
 
+    List<Widget> pokemos = [];
     for (var poke in data ){
-      pokemos.add(Card(child: Column(
+      pokemos.add(Card(
+      clipBehavior: Clip.antiAlias,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(12),
+        ),
+        child: Column(
         children: [
-           Expanded(child: 
-          Image.network('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png',
-          fit: BoxFit.fill,)),
+          Stack(
+            alignment: Alignment.center,
+            children: [
+              Ink.image(
+                image: NetworkImage(
+                  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png',
+                ),
+                //  colorFilter: ColorFilters.greyscale,
+                  child: InkWell(
+                  onTap: () {},
+              ),
+                height: 250,
+              fit: BoxFit.cover,
+             ),
+          ],
+        ),
           Text(poke.name, style:  const TextStyle(fontSize: 40,color: Colors.white,shadows: <Shadow>[
                   Shadow(
                     offset: Offset(3, 3),
