@@ -16,7 +16,7 @@ class Pokemon extends StatefulWidget {
 }
 
 class _PokemonState extends State<Pokemon> {
-
+//variable global Número Ramdon 
   int? r = 0;
 
 // ignore: non_constant_identifier_names
@@ -27,11 +27,9 @@ void OnPressButton(){
 }
 //obejto espera de servidor
  Future<List<PokeApi>?> _getPokemon() async {
-   
-      
       Random rnd;
       int min = 1;
-      int max = 450;
+      int max = 500;
       rnd =  Random();
       r = min + rnd.nextInt(max - min);
 
@@ -44,6 +42,8 @@ void OnPressButton(){
       String body = utf8.decode(response.bodyBytes);
 
       final jsonData = jsonDecode(body);
+    
+
       for (var item in jsonData["forms"]) {
         pokemons.add(PokeApi(item['name'], item['url'], item['sprites']));
       }
@@ -64,10 +64,12 @@ void OnPressButton(){
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        backgroundColor: Color.fromARGB(255, 182, 212, 198),
+        backgroundColor: Colors.cyan,
         appBar: AppBar(
-          title: Text('Pokemon'),
-          backgroundColor: Color.fromARGB(255, 182, 212, 198),
+          elevation: 0.0,
+          backgroundColor: Colors.cyan,
+          title: Text(""),
+          // title: Text(),
         ),
         body: FutureBuilder(
           future: _getPokemon(),
@@ -86,62 +88,79 @@ void OnPressButton(){
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: OnPressButton,
-          child: const Icon(Icons.work_off_sharp),
+          child: const Icon(Icons.history),
         ),
       ),
     );
   }
 
   List<Widget>  _listpoke( data){
-
-      // int? r = 0;
-      // Random rnd;
-      // int min = 1;
-      // int max = 450;
-      // rnd =  Random();
-      // r = min + rnd.nextInt(max - min);
-
     List<Widget> pokemos = [];
     for (var poke in data ){
-      pokemos.add(Card(
-      clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Column(
-        children: [
-          Stack(
-            alignment: Alignment.center,
-            children: [
-              Ink.image(
-                image: NetworkImage(
-                  'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png',
-                ),
-                //  colorFilter: ColorFilters.greyscale,
-                  child: InkWell(
-                  onTap: () {},
+      pokemos.add(
+        Stack(
+        children: <Widget>[
+          Positioned(
+            height: MediaQuery.of(context).size.height / 1.5,
+            width: MediaQuery.of(context).size.width - 20,
+            left: 10.0,
+            top: MediaQuery.of(context).size.height * 0.1,
+            child: Card(
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(15.0),
               ),
-                height: 250,
-              fit: BoxFit.cover,
-             ),
-          ],
-        ),
-          Text(poke.name, style:  const TextStyle(fontSize: 40,color: Colors.white,shadows: <Shadow>[
-                  Shadow(
-                    offset: Offset(3, 3),
-                    blurRadius: 12.0,
-                    color: Color.fromARGB(255, 0, 0, 0),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  SizedBox(
+                    height: 70.0,
                   ),
-                  Shadow(
-                    offset: Offset(5, 5),
-                    blurRadius: 4,
-                    color: Color.fromARGB(124, 0, 0, 0),
+                  Text(
+                    poke.name,
+                    style:
+                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
                   ),
+                  Text("Height: ${poke.name}"),
+                  Text("Weight: ${poke.name}"),
+                    const Text("Types",style: TextStyle(fontWeight: FontWeight.bold
+                  ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ),
+                  const Text("Weakness",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ),
+                  const Text("Next Evolution",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
+                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ),
+                  const Text("Next Evolution",
+                      style: TextStyle(fontWeight: FontWeight.bold)),
                 ],
-          )),
-          // Text(poke.url),
+              ),
+            ),
+          ),
+          Align(
+            alignment: Alignment.topCenter,
+            child: Hero(
+                tag: Image,
+                child: Container(
+                  height: 200.0,
+                  width: 200.0,
+                  decoration: BoxDecoration(
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png'))),
+                            // placeholder: AssetImage('assets/cargando-loading.gif'),
+                )),
+          )
         ],
-      )));
+      ),
+      );
     }
      return pokemos;
   }
