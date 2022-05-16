@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primera_app_curso/SecondScreen.dart';
+import 'package:primera_app_curso/view/SecondScreen.dart';
 import 'package:primera_app_curso/view/PagePokeScree.dart';
 import 'package:primera_app_curso/view/TreeScreen.dart';
 import 'package:primera_app_curso/view/fourScreen.dart';
