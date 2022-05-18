@@ -6,6 +6,7 @@ import 'package:primera_app_curso/recursos/color_filters.dart';
 import 'package:flutter/material.dart';
 import 'package:primera_app_curso/models/Pokeapi.dart';
 import 'package:http/http.dart' as http;
+import 'package:google_fonts/google_fonts.dart';
 
 class Pokemon extends StatefulWidget {
    Pokemon({Key? key}) : super(key: key);
@@ -65,7 +66,7 @@ void OnPressButton(){
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.cyan,
-        appBar: AppBar(s
+        appBar: AppBar(
           elevation: 0.0,
           backgroundColor: Colors.cyan,
           title: Text(""),
@@ -81,14 +82,28 @@ void OnPressButton(){
               );
             } else if(snapshot.hasError){
               print(snapshot.hasError);
-              return const Text("Algo Fallo");
+              // return const Text("Algo Fallo");
+             return Container(
+               padding:EdgeInsets.only(top: 50),
+              child: Image(image: AssetImage('assets/pokeball2.gif')),
+               alignment: Alignment.center,
+              width: 500,
+              height: 500,
+            );
             }
-             return const Text("ALGO FALLO");
+            return Container(
+             padding:EdgeInsets.only(top: 50), 
+              child: Image(image: AssetImage('assets/pokeball2.gif')),
+               alignment: Alignment.center,
+              width: 500,
+              height: 500,
+            );
           },
         ),
         floatingActionButton: FloatingActionButton(
           onPressed: OnPressButton,
-          child: const Icon(Icons.history),
+          
+          child:  Image.asset('assets/pokeball.gif'),
         ),
       ),
     );
@@ -118,7 +133,8 @@ void OnPressButton(){
                   Text(
                     poke.name,
                     style:
-                        TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                    GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold)
+                        // TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
                   ),
                   Text("Height: ${poke.name}"),
                   Text("Weight: ${poke.name}"),
@@ -128,7 +144,7 @@ void OnPressButton(){
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
-                  const Text("Weakness",
+                  const Text("Weakness :",
                       style: TextStyle(fontWeight: FontWeight.bold)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -146,20 +162,28 @@ void OnPressButton(){
           ),
           Align(
             alignment: Alignment.topCenter,
-            child: Hero(
-                tag: Image,
-                child: Container(
-                  height: 200.0,
-                  width: 200.0,
-                  decoration: BoxDecoration(
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image: NetworkImage('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png'))),
-                            // placeholder: AssetImage('assets/cargando-loading.gif'),
-                )),
-          )
-        ],
-      ),
+            child: FadeInImage(
+             fadeInDuration: Duration(milliseconds:300),
+              placeholder: AssetImage('assets/pokeball.gif'),
+              height: 200.0,
+              width: 200.0,
+              fit: BoxFit.cover,
+             image: NetworkImage('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png')
+            ),
+            // child: Hero(
+            //     tag: Image,
+            //     child: Container(
+            //       height: 200.0,
+            //       width: 200.0,
+            //       decoration: BoxDecoration(
+            //           image: DecorationImage(
+            //               fit: BoxFit.cover,
+            //               image: NetworkImage('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png'))),
+            //                 // placeholder: AssetImage('assets/cargando-loading.gif'),
+            //     )),
+            )
+          ],
+        ),
       );
     }
      return pokemos;
