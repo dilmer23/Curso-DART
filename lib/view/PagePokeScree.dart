@@ -20,6 +20,8 @@ class Pokemon extends StatefulWidget {
 class _PokemonState extends State<Pokemon> {
 //variable global Número Ramdon 
   int? r = 0;
+     String? name="pokemon";
+
 
 // ignore: non_constant_identifier_names
 void OnPressButton(){
@@ -45,7 +47,7 @@ void OnPressButton(){
       return pokeModelo;
       
     } else {
-      var pokeModelo = PokeApi(name: 'name', weight: 0, base_experience: 0);
+      var pokeModelo = PokeApi(name: 'name', weight: 0, base_experience: 0,height: 0);
       return pokeModelo;
      
     }
@@ -60,38 +62,35 @@ void OnPressButton(){
 
   @override
   Widget build(BuildContext context) {
+   
     return MaterialApp(
       home: Scaffold(
         backgroundColor: Colors.cyan,
         appBar: AppBar(
           elevation: 0.0,
           backgroundColor: Colors.cyan,
-          title: Text(""),
+          title: Text('$name'),
         ),
         body: FutureBuilder(
           future: _getPokemon(),
           builder: (context, snapshot) {
             if(snapshot.hasData){
-              return GridView.count(
-                crossAxisCount: 1,
-                // children: wigetPoke(snapshot.data),
-                children: [wigetPoke(snapshot.data)],
-              );
+               name = method(snapshot.data);
+              return wigetPoke(snapshot.data);
             } else if(snapshot.hasError){
               print(snapshot.hasError);
-              // return const Text("Algo Fallo");
              return Container(
                padding:EdgeInsets.only(top: 50),
-              child: Image(image: AssetImage('assets/pokeball2.gif')),
+               child: Image(image: AssetImage('assets/pokeball2.gif')),
                alignment: Alignment.center,
                 width: 500,
                 height: 500,
             );
             }
             return Container(
-             padding:EdgeInsets.only(top: 50), 
+             padding:EdgeInsets.only(top: 150), 
               child: Image(image: AssetImage('assets/pokeball2.gif')),
-               alignment: Alignment.center,
+              alignment: Alignment.center,
               width: 500,
               height: 500,
             );
@@ -106,10 +105,10 @@ void OnPressButton(){
     );
   }
 
-  Widget wigetPoke( data){
+  Widget wigetPoke(data){
     return 
         Stack(
-        children: <Widget>[
+          children: <Widget>[
           Positioned(
             height: MediaQuery.of(context).size.height / 1.5,
             width: MediaQuery.of(context).size.width - 20,
@@ -120,51 +119,46 @@ void OnPressButton(){
                 borderRadius: BorderRadius.circular(15.0),
               ),
               child: Column(
+                
+                // mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
+                  // ignore: prefer_const_constructors
                   SizedBox(
-                    height: 70.0,
-                  ),
+                     height: 70.0,
+                    ),
                   Text(
                     data.name,
                     style:
                     GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold)
-                        // TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
                   ),
                   Row(
-                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        Text("Experience:${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:15,fontWeight:FontWeight.bold)),
-                          Text("Experience:${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:15,fontWeight:FontWeight.bold)),
+                        Container(
+                          child: Text("height:${data.height}",style: GoogleFonts.bebasNeue(fontSize:25,fontWeight:FontWeight.bold)),
+                          color: Colors.amber,
+                        ),
+                        Container(
+                          child: Text("Weight:${data.weight}",style: GoogleFonts.bebasNeue(fontSize:25,fontWeight:FontWeight.bold)),
+                          color: Colors.red,
+                        ),
                       ],
                   ),
-                  Row(
-                    
-                    children: [
-
-                    ],
-                  ),
-                  // Text("Experience:${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:15,fontWeight:FontWeight.bold)),
-                  Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:15,fontWeight:FontWeight.bold)),
-                    const Text("Types",style: TextStyle(fontWeight: FontWeight.bold
-                  ),
-                  ),
+                  Text("Experience: ${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
                   Row(
                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                    
                   ),
-                   Text("Weight: ${data.weight}"),
-                      // style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
-                  const Text("Next Evolution",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                    Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
                    Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
-                  const Text("Next Evolution",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                  Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
                 ],
               ),
             ),
@@ -181,7 +175,12 @@ void OnPressButton(){
             ),
             )
           ],
-        
+         
       );
+  }
+
+  String? method(data) {
+
+    return data.name;
   }
 }
