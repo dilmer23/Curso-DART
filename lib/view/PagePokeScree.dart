@@ -1,4 +1,5 @@
 import 'dart:convert';
+
 import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
@@ -27,33 +28,29 @@ void OnPressButton(){
   });
 }
 //obejto espera de servidor
- Future<List<PokeApi>?> _getPokemon() async {
+ Future<PokeApi> _getPokemon() async {
       Random rnd;
       int min = 1;
       int max = 500;
       rnd =  Random();
       r = min + rnd.nextInt(max - min);
 
-   final response =  
-    await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$r'));
-
-    List<PokeApi> pokemons = [];
+   final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon/$r'));
     if(response.statusCode== 200 ){
+      
       //codificar información de la api 
-      String body = utf8.decode(response.bodyBytes);
-
-      final jsonData = jsonDecode(body);
-    
-
-      for (var item in jsonData["forms"]) {
-        pokemons.add(PokeApi(item['name'], item['url'], item['sprites']));
-      }
+      final jsonData = jsonDecode(response.body) ;
+      var pokeModelo = PokeApi.fromJson(jsonData);
+      // print(pokeModelo);
+      return pokeModelo;
+      
     } else {
-      throw Exception("Fallo la conexión");
+      var pokeModelo = PokeApi(name: 'name', weight: 0, base_experience: 0);
+      return pokeModelo;
+     
     }
-    return pokemons;
+      // return json;
  }
-
 //que se ejecute al abrir app o pantalla
  @override
   void initState() {
@@ -70,7 +67,6 @@ void OnPressButton(){
           elevation: 0.0,
           backgroundColor: Colors.cyan,
           title: Text(""),
-          // title: Text(),
         ),
         body: FutureBuilder(
           future: _getPokemon(),
@@ -78,7 +74,8 @@ void OnPressButton(){
             if(snapshot.hasData){
               return GridView.count(
                 crossAxisCount: 1,
-               children: _listpoke(snapshot.data),
+                // children: wigetPoke(snapshot.data),
+                children: [wigetPoke(snapshot.data)],
               );
             } else if(snapshot.hasError){
               print(snapshot.hasError);
@@ -87,8 +84,8 @@ void OnPressButton(){
                padding:EdgeInsets.only(top: 50),
               child: Image(image: AssetImage('assets/pokeball2.gif')),
                alignment: Alignment.center,
-              width: 500,
-              height: 500,
+                width: 500,
+                height: 500,
             );
             }
             return Container(
@@ -109,10 +106,8 @@ void OnPressButton(){
     );
   }
 
-  List<Widget>  _listpoke( data){
-    List<Widget> pokemos = [];
-    for (var poke in data ){
-      pokemos.add(
+  Widget wigetPoke( data){
+    return 
         Stack(
         children: <Widget>[
           Positioned(
@@ -131,21 +126,35 @@ void OnPressButton(){
                     height: 70.0,
                   ),
                   Text(
-                    poke.name,
+                    data.name,
                     style:
                     GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold)
                         // TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
                   ),
-                  Text("Height: ${poke.name}"),
-                  Text("Weight: ${poke.name}"),
+                  Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        Text("Experience:${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:15,fontWeight:FontWeight.bold)),
+                          Text("Experience:${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:15,fontWeight:FontWeight.bold)),
+                      ],
+                  ),
+                  Row(
+                    
+                    children: [
+
+                    ],
+                  ),
+                  // Text("Experience:${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:15,fontWeight:FontWeight.bold)),
+                  Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:15,fontWeight:FontWeight.bold)),
                     const Text("Types",style: TextStyle(fontWeight: FontWeight.bold
                   ),
                   ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   
                   ),
-                  const Text("Weakness :",
-                      style: TextStyle(fontWeight: FontWeight.bold)),
+                   Text("Weight: ${data.weight}"),
+                      // style: TextStyle(fontWeight: FontWeight.bold)),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
@@ -170,22 +179,9 @@ void OnPressButton(){
               fit: BoxFit.cover,
              image: NetworkImage('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png')
             ),
-            // child: Hero(
-            //     tag: Image,
-            //     child: Container(
-            //       height: 200.0,
-            //       width: 200.0,
-            //       decoration: BoxDecoration(
-            //           image: DecorationImage(
-            //               fit: BoxFit.cover,
-            //               image: NetworkImage('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png'))),
-            //                 // placeholder: AssetImage('assets/cargando-loading.gif'),
-            //     )),
             )
           ],
-        ),
+        
       );
-    }
-     return pokemos;
   }
 }

@@ -2,17 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:primera_app_curso/view/PagePokeScree.dart';
 
 class PokeApi {
-  String? name;
-  String? url;
-  String? img;
-  int? Aleatorio;
+  final  String name;
+  final  int weight;
+  final  int base_experience;
+  
 
-  PokeApi(name, url, img) {
-    // ignore: prefer_initializing_formals
-    this.name = name;
-    // ignore: prefer_initializing_formals
-    this.url = url;
-    // ignore: prefer_initializing_formals
-    this.img =img;
- }
-}
+  PokeApi({
+    required this.name, 
+    required this.weight,
+    required this.base_experience
+    });
+ 
+  factory PokeApi.fromJson(Map<String, dynamic> json) =>
+    PokeApi(
+      name : json['name'],
+      weight: json['weight'],
+      base_experience: json['base_experience']
+    );
+
+   Map<String, dynamic> toJson()  {
+      final Map<String, dynamic> data = new Map<String, dynamic>();
+       data['name'] = this.name;
+       data['weight'] = this.weight;
+       data['base_experience'] = this.base_experience;
+      return data;
+    }
+  }
+  
