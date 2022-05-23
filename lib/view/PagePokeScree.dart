@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:primera_app_curso/models/Pokeapi.dart';
 import 'package:http/http.dart' as http;
 import 'package:google_fonts/google_fonts.dart';
+import 'package:animated_text_kit/animated_text_kit.dart';
 
 class Pokemon extends StatefulWidget {
    Pokemon({Key? key}) : super(key: key);
