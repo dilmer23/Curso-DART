@@ -39,12 +39,20 @@ dependencies:
   http: ^0.13.4
   google_fonts: ^2.3.2
   freezed: ^2.0.3+1
-  # animated_text_kit: ^4.2.1
-  flutter_native_splash: ^2.0.1+1
+  flutter_native_splash: ^2.2.1
 
-flutter_native_splash:
-  color: "#80DBDB"
-  imagen: assets/pokeball.gif  
+
+# flutter_native_splash:
+#   color: "#FF0707" #color
+#   image: assets/aenaPokemon.png
+  # branding: assets/background.jpg
+  # color_dark: "#121212"
+  
+  # android_12:
+  #   image: assets/pokeball.gif
+  #   icon_background_color: "#ffffff"
+  #   image_dark: assets/background.jpg
+  #   icon_background_color_dark: "#121212"
 
 
 dev_dependencies:
