@@ -40,6 +40,11 @@ dependencies:
   google_fonts: ^2.3.2
   freezed: ^2.0.3+1
   animated_text_kit: ^4.2.1
+  flutter_native_splash: ^2.0.1+1
+
+flutter_native_splash:
+  color: "#80DBDB"
+  imagen: assets/pokeball.gif  
 
 
 dev_dependencies:
@@ -68,8 +73,9 @@ flutter:
   assets:
    - assets/tenor.gif
    - assets/pokeball.gif
-   - assets/pokeball2.gif
+   - assets/pokeball2.gif 
    - assets/aenaPokemon.png
+   - assets/background.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -63,49 +63,67 @@ void OnPressButton(){
 
   @override
   Widget build(BuildContext context) {
-   
     return MaterialApp(
-      home: Scaffold(
-        backgroundColor: Colors.cyan,
-        appBar: AppBar(
-          elevation: 0.0,
-          backgroundColor: Colors.cyan,
-          title: Text('$name'),
+      home: Container(
+        decoration:  BoxDecoration(
+           boxShadow: [
+                BoxShadow(
+                  color: Colors.grey.withOpacity(.6),
+                  blurRadius: 10.0, 
+                  spreadRadius: 0.0,
+                  offset: const Offset(
+                    1.0, // Move to right 10  horizontally
+                  1.0, // Move to bottom 10 Vertically
+                  ),
+                )
+              ],
+          image: const DecorationImage(
+            image: AssetImage('assets/background.jpg'),
+            ),  
         ),
-        body: FutureBuilder(
-          future: _getPokemon(),
-          builder: (context, snapshot) {
-            if(snapshot.hasData){
-               name = method(snapshot.data);
-              return wigetPoke(snapshot.data);
-            } else if(snapshot.hasError){
-              print(snapshot.hasError);
-             return Container(
-               padding:EdgeInsets.only(top: 50),
-               child: Image(image: AssetImage('assets/pokeball2.gif')),
-               alignment: Alignment.center,
-                width: 500,
-                height: 500,
-            );
-            }
-            return Container(
-             padding:EdgeInsets.only(top: 150), 
-              child: Image(image: AssetImage('assets/pokeball2.gif')),
-              alignment: Alignment.center,
-              width: 500,
-              height: 500,
-            );
-          },
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: OnPressButton,
-          
-          child:  Image.asset('assets/pokeball.gif'),
+        child: FutureBuilder(
+         future: _getPokemon(),
+              builder: (context, snapshot) {
+                if(snapshot.hasData){
+                  name = method(snapshot.data);
+                  return Scaffold(
+                  body: wigetPoke(snapshot.data) ,
+                  backgroundColor: Colors.transparent,
+                    appBar: AppBar(
+                      elevation: 0.0,
+                      backgroundColor: Colors.transparent,
+                      title: Text('$name',style:GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold,color: Colors.black)),
+                    ),
+                    floatingActionButton: FloatingActionButton(
+                      onPressed: OnPressButton,
+                      
+                      child:  Image.asset('assets/pokeball.gif'),
+                    ),
+                  );
+                } else if(snapshot.hasError){
+                  print(snapshot.hasError);
+                return Container(
+                  padding:EdgeInsets.only(top: 50),
+                  child: Image(image: AssetImage('assets/pokeball2.gif')),
+                  alignment: Alignment.center,
+                    width: 500,
+                    height: 500,
+                );
+                }
+                return Container(
+                padding:EdgeInsets.only(top: 150), 
+                  child: Image(image: AssetImage('assets/pokeball2.gif')),
+                  alignment: Alignment.center,
+                  width: 500,
+                  height: 500,
+                );
+              },
         ),
       ),
     );
   }
 
+ 
   Widget wigetPoke(data){
     return 
         Stack(
@@ -116,24 +134,82 @@ void OnPressButton(){
             left: 10.0,
             top: MediaQuery.of(context).size.height * 0.1,
             child: Card(
+              elevation: 8,  // Change this 
+              shadowColor: Colors.black,  // Change this 
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15.0),
+              borderRadius: BorderRadius.circular(15.0),
               ),
               child: Column(
-                
                 // mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: <Widget>[
                   // ignore: prefer_const_constructors
                   SizedBox(
-                     height: 70.0,
+                     height: 80.0,
                     ),
+                    Container(
+                        width: 30,
+                        height: 30,
+                        decoration:  BoxDecoration(
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(.6),
+                              blurRadius: 10.0, // soften the shadow
+                              spreadRadius: 0.0, //extend the shadow
+                              offset: const Offset(
+                                1.0, // Move to right 10  horizontally
+                                1.0, // Move to bottom 10 Vertically
+                              ),
+                            )
+                          ],
+                        ),
+                      ),  
                   Text(
-                    data.name,
-                    style:
-                    GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold)
+                    data.name,style:GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold)
                   ),
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        Container(
+                          child: Text("height:${data.height}",style: GoogleFonts.bebasNeue(fontSize:25,fontWeight:FontWeight.bold)),
+                           decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2.5,
+                                 color: Colors.black26
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                                width: 2.5,
+                                color: Colors.black26
+                            ),
+                          ),
+                          child: Text("Weight:${data.weight}",style: GoogleFonts.bebasNeue(fontSize:25,fontWeight:FontWeight.bold)),
+                        ),
+                      ],
+                  ),
+                  Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black,                   
+                            width: 2.0,
+                          )
+                        ),
+                      ),
+                  Text("Experience: ${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
+                  Row(
+                    
+                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                   
+                  ),
+                    Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  ),
+                    Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
+                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
                         Container(
@@ -145,19 +221,6 @@ void OnPressButton(){
                           color: Colors.red,
                         ),
                       ],
-                  ),
-                  Text("Experience: ${data.base_experience}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
-                  Row(
-                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                   
-                  ),
-                    Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  ),
-                    Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
-                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   ),
                   Text("Weight: ${data.weight}",style: GoogleFonts.bebasNeue(fontSize:30,fontWeight:FontWeight.bold)),
                 ],

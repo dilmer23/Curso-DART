@@ -20,62 +20,60 @@ void main() {
 
 class FirtScreen extends StatelessWidget{
 
-  final double iconSize =80;
+  final double iconSize =100;
   @override
   Widget build(BuildContext context) {
-    
-    String ruta;
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Primera app"),
-      ),
-      body:SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: const <Widget>[
-            MyCard(
-              titulo: Text("Diego Cerquera"),
-              icono: Icon(Icons.safety_divider,size: 80,color: Colors.blue,),
-            ),
-             MyCard(
-              titulo: Text("Jesus Pardo"),
-              icono: Icon(Icons.ac_unit_outlined,size: 80,color: Colors.deepOrangeAccent,),
-            ),
-             MyCard(
-              titulo: Text("Javier Campuzano"),
-              icono: Icon(Icons.ice_skating,size: 80,)
-            ),
-             MyButton(
-             tituloBtn: Text("setState"),
-            ),
-            MyButton(
-              tituloBtn: Text("TextField"),
+      backgroundColor: Color.fromARGB(255, 255, 255, 255),
+      body: Stack(
+        children: <Widget>[
+          Container(
+            height: 225,
+            decoration: BoxDecoration(
+              image: DecorationImage( image: AssetImage('assets/pokeball2.gif'),),
+              gradient: LinearGradient(
+                begin: Alignment.topRight,
+                end: Alignment.bottomLeft,
+                stops: [0.1, 0.6],
+                colors: [
+                  Theme.of(context).primaryColor.withGreen(190),
+                  Theme.of(context).primaryColor,
+                ],
               ),
-            MyButton(
-              tituloBtn: Text("Alert Dialog"),
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.elliptical(
+                    MediaQuery.of(context).size.width * 0.50, 18),
+                bottomRight: Radius.elliptical(
+                    MediaQuery.of(context).size.width * 0.50, 18),
+              ),
             ),
-          ],
-        ),
-      )
-    );
-  }
-}
-class MyCard extends StatelessWidget {
-  final Widget titulo;
-  final Widget icono;
-  const MyCard({required this.icono,required this.titulo});
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(30.0),
-      child: Card(
-        child: Column(
-          children: <Widget>[icono,titulo],
-        ),
+          ),
+          Positioned(
+            top: 30,
+            right: 5,
+            child: IconButton(
+              color: Theme.of(context).accentColor,
+              icon: Icon(Icons.settings),
+              onPressed: () {
+                Navigator.push(context,MaterialPageRoute(builder: (context) =>  Pokemon()),);
+              },
+            ),
+          ),
+        ],
       ),
+      
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+      floatingActionButton: FloatingActionButton(
+        onPressed: ()  {
+         Navigator.pushNamed(context, '/pokemon');
+        },
+        child: Icon(Icons.keyboard_tab),
+      ),
+      
     );
   }
 }
+
 
 class MyButton extends StatelessWidget {
   final String ruta;
