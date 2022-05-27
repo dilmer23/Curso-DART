@@ -1,4 +1,4 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
 
 class SecondScreen extends StatefulWidget {
@@ -8,11 +8,11 @@ class SecondScreen extends StatefulWidget {
 }
 
 class _SecondScreen extends State<SecondScreen> {
-  @override
   String flutterText = "Prueba";
 // ignore: non_constant_identifier_names
 int index = 0;
 //arreglo de texto para el tring que actualiza el setState
+// ignore: non_constant_identifier_names
 List<String> Collletion =['Diego','Jesus','Javier','Dilmer']; 
   // ignore: non_constant_identifier_names
   void OnPressButton(){

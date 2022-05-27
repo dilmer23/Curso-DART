@@ -39,7 +39,8 @@ dependencies:
   http: ^0.13.4
   google_fonts: ^2.3.2
   freezed: ^2.0.3+1
-  flutter_native_splash: ^2.2.1
+  
+  animated_text_kit: ^4.2.1
 
 
 # flutter_native_splash:
@@ -85,6 +86,9 @@ flutter:
    - assets/aenaPokemon.png
    - assets/background.jpg
    - assets/peakpx.jpg
+   - assets/pokemonf.jpg
+   - assets/fondo.jpg
+   - assets/fondo2.jpg
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

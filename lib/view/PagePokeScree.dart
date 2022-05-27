@@ -65,6 +65,9 @@ void OnPressButton(){
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Container(
+        height: MediaQuery.of(context).size.height / 2.0,
+            width: MediaQuery.of(context).size.width - 20,
+         
         decoration:  BoxDecoration(
            boxShadow: [
                 BoxShadow(
@@ -78,7 +81,8 @@ void OnPressButton(){
                 )
               ],
           image: const DecorationImage(
-            image: AssetImage('assets/background.jpg'),
+            image: AssetImage('assets/fondo2.jpg'),
+            fit: BoxFit.cover,
             ),  
         ),
         child: FutureBuilder(
@@ -92,7 +96,7 @@ void OnPressButton(){
                     appBar: AppBar(
                       elevation: 0.0,
                       backgroundColor: Colors.transparent,
-                      title: Text('$name',style:GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold,color: Colors.black)),
+                      title: Text('$name',style:GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold,color: Colors.white)),
                     ),
                     floatingActionButton: FloatingActionButton(
                       onPressed: OnPressButton,
@@ -111,8 +115,8 @@ void OnPressButton(){
                 );
                 }
                 return Container(
-                padding:EdgeInsets.only(top: 150), 
-                  child: Image(image: AssetImage('assets/pokeball2.gif')),
+                padding:const EdgeInsets.only(top: 150), 
+                  child: const Image(image: AssetImage('assets/pokeball2.gif')),
                   alignment: Alignment.center,
                   width: 500,
                   height: 500,
@@ -230,15 +234,15 @@ void OnPressButton(){
           Align(
             alignment: Alignment.topCenter,
             child: FadeInImage(
-             fadeInDuration: Duration(milliseconds:300),
-              placeholder: AssetImage('assets/pokeball.gif'),
+             fadeInDuration: const Duration(milliseconds:300),
+              placeholder: const AssetImage('assets/pokeball.gif'),
               height: 200.0,
               width: 200.0,
               fit: BoxFit.cover,
              image: NetworkImage('https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/$r.png')
             ),
-            )
-          ],
+          )
+        ],
          
       );
   }
