@@ -99,6 +99,7 @@ void OnPressButton(){
                       title: Text('$name',style:GoogleFonts.bebasNeue(fontSize: 30.0,fontWeight: FontWeight.bold,color: Colors.white)),
                     ),
                     floatingActionButton: FloatingActionButton(
+                      backgroundColor: Colors.red,
                       onPressed: OnPressButton,
                       
                       child:  Image.asset('assets/pokeball.gif'),

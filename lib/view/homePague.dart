@@ -28,7 +28,7 @@ class _homeScreenPokemonState extends State<homeScreenPokemon> {
       rnd =  Random();
       r = min + rnd.nextInt(max - min);
 
-   final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=6&offset=$r'));
+   final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=10&offset=$r'));
     if(response.statusCode== 200 ){
       
       //codificar información de la api 
@@ -131,11 +131,23 @@ class _homeScreenPokemonState extends State<homeScreenPokemon> {
           ),
             Align(
               alignment: Alignment.bottomCenter,
-              child: ElevatedButton(
+              child: ElevatedButton.icon(
+                icon:  Image.asset('assets/pokeball.gif'),
+                label: Text('Pokemon'),
+                style: ElevatedButton.styleFrom(
+                  onPrimary:Colors.black,
+                  primary: Colors.red,
+                  onSurface: Colors.grey,
+                  // side: BorderSide(color: Colors.white, width: 1),
+                  elevation: 20,
+                  minimumSize: Size(150,50),
+                  shadowColor: Colors.teal,
+                 shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(30)),
+                ),
                 onPressed: (){
                    Navigator.pushNamed(context, '/pokemon');
                 }, 
-                child: Text('Pokemon'),),
+              ) 
            ),
         ],
       ),
@@ -164,11 +176,11 @@ class _homeScreenPokemonState extends State<homeScreenPokemon> {
               child: FadeInImage(
                fadeInDuration: Duration(milliseconds:300),
                 placeholder: AssetImage('assets/pokeball.gif'),
-                height: 100.0,
-                width: 100.0,
+                height: 120.0,
+                width: 120.0,
                 fit: BoxFit.cover,
                image: NetworkImage(
-                 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/80.png')
+                 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png')
               ),
               )
 
