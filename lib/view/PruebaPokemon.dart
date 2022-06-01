@@ -1,45 +1,31 @@
 import 'dart:convert';
-import 'dart:math';
-
 import 'package:flutter/material.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:animated_text_kit/animated_text_kit.dart';
-import 'package:primera_app_curso/models/PokeRegistros.dart';
+import 'package:primera_app_curso/models/pokeApi2.dart';
 import 'package:http/http.dart' as http;
-import 'package:primera_app_curso/view/PruebaPokemon.dart';
-
-import 'PagePokeScree.dart';
 
 
-class homeScreenPokemon extends StatefulWidget{
-   const homeScreenPokemon({Key? key}) : super(key: key);
+class PruebaPokemon extends StatefulWidget{
+   const PruebaPokemon({Key? key}) : super(key: key);
 
   @override
-  State<homeScreenPokemon> createState() => _homeScreenPokemonState();
+  State<PruebaPokemon> createState() => _PruebaPokemonState();
 }
 
 // ignore: camel_case_types
-class _homeScreenPokemonState extends State<homeScreenPokemon> {
-  int? r = 0;
+class _PruebaPokemonState extends State<PruebaPokemon> {
 
-   Future<PokeRegistros> getPokeRegistros() async {
-      Random rnd;
-      int min = 1;
-      int max = 100;
-      rnd =  Random();
-      r = min + rnd.nextInt(max - min);
+   Future<PokeApi2> getPokeRegistros() async {
 
-   final response = await http.get(Uri.parse('https://pokeapi.co/api/v2/pokemon?limit=10&offset=$r'));
+   final response = await http.get(Uri.parse('https://raw.githubusercontent.com/Biuni/PokemonGO-Pokedex/master/pokedex.json'));
     if(response.statusCode== 200 ){
-      
-      //codificar información de la api 
       final jsonData = jsonDecode(response.body) ;
-      var pokeModelo = PokeRegistros.fromJson(jsonData);
+      var pokeModelo = PokeApi2.fromJson(jsonData);
+      print(pokeModelo);
       return pokeModelo;
       
     } else {
-      var pokeModelo = PokeRegistros();
+      var pokeModelo = PokeApi2();
       return pokeModelo;
     }
  }
@@ -72,7 +58,7 @@ class _homeScreenPokemonState extends State<homeScreenPokemon> {
                   return Container(
                     padding:EdgeInsets.only(top: 100),
                     child: GridView.count(
-                      crossAxisCount: 2,
+                      crossAxisCount: 4,
                       children: 
                        widgetRegistroPoke(snapshot.data),
                      ),
@@ -158,10 +144,10 @@ class _homeScreenPokemonState extends State<homeScreenPokemon> {
 }
 
  List<Widget> widgetRegistroPoke(data){
-         return listPokemon(data.results);
+         return listPokemon(data.pokemon);
   }
 
-  List<Widget> listPokemon(List<Results> data) {
+  List<Widget> listPokemon(List<Pokemon> data) {
     List<Widget> poke = [];
     
     for (var pokemon in data) {
@@ -170,7 +156,7 @@ class _homeScreenPokemonState extends State<homeScreenPokemon> {
          mainAxisSize: MainAxisSize.min,
           children: [
             Text(pokemon.name.toString(),style:GoogleFonts.bebasNeue(fontSize: 25.0,fontWeight: FontWeight.bold)),
-            const Align(
+             Align(
               alignment: Alignment.topCenter,
               child: FadeInImage(
                fadeInDuration: Duration(milliseconds:300),
@@ -178,8 +164,7 @@ class _homeScreenPokemonState extends State<homeScreenPokemon> {
                 height: 120.0,
                 width: 120.0,
                 fit: BoxFit.cover,
-               image: NetworkImage(
-                 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/25.png')
+               image: NetworkImage(pokemon.img.toString())
               ),
             )
           ],

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:primera_app_curso/view/PruebaPokemon.dart';
 import 'package:primera_app_curso/view/SecondScreen.dart';
 import 'package:primera_app_curso/view/PagePokeScree.dart';
 import 'package:primera_app_curso/view/TreeScreen.dart';
@@ -19,6 +20,7 @@ void main() {
       '/tree'   : (context) => TreeScreen(),
       '/four'   : (context) => fourScreen(),
       '/pokemon'   : (context) => Pokemon(),
+       '/pokemon2'   : (context) => PruebaPokemon(),
     },
   ));
 }
